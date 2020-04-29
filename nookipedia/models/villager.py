@@ -1,5 +1,9 @@
-class Villager:
+from .cached_object import CachedObject
+
+
+class Villager(CachedObject):
     def __init__(self, data: dict):
+        super().__init__(data.get("updated"), data.get("cached"))
         self.message = data.get("message")
         self.name = data.get("name")
         self.image = data.get("image")
@@ -25,5 +29,3 @@ class Villager:
         self.coffee_milk = data.get("coffee-milk")
         self.coffee_sugar = data.get("coffee-sugar")
         self.link = data.get("link")
-        self.updated = data.get("updated")
-        self.cached = data.get("cached")
