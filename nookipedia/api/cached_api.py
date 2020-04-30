@@ -1,16 +1,23 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 from dateutil import tz
 
 from nookipedia.api import API
 
+EXPIRE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
 
 def valid_cache(data: dict) -> bool:
     api_cache_expire = data.get("api-cache-expire")
-    expire = datetime.strptime(api_cache_expire, "%Y-%m-%d %H:%M:%S")
     us_eastern = tz.gettz("US/Eastern")
-    expire = expire.replace(tzinfo=us_eastern)
+    if api_cache_expire is None:
+        # exception for /critter right now
+        expire = (datetime.now() + timedelta(hours=6)).replace(tzinfo=us_eastern)
+        data["api-cache-expire"] = expire.strftime(EXPIRE_FORMAT)
+    else:
+        expire = datetime.strptime(api_cache_expire, EXPIRE_FORMAT)
+        expire = expire.replace(tzinfo=us_eastern)
     if expire > datetime.now().replace(tzinfo=tz.gettz()):
         return True
     return False
