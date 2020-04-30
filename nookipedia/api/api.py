@@ -1,3 +1,5 @@
+from typing import List
+
 import aiohttp
 
 
@@ -24,6 +26,9 @@ class API:
     async def get_today(self, date: str = "") -> dict:
         return await self._get_today(date)
 
+    async def get_villager_list(self) -> List[str]:
+        return await self._get_villager_list()
+
     async def _get_villager(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/villager/{name}/")
 
@@ -35,3 +40,12 @@ class API:
 
     async def _get_today(self, date: str = "") -> dict:
         return await self._fetch_json(f"{self.url}/today/{date}/")
+
+    async def _get_villager_list(self) -> List[str]:
+        data = await self._fetch_json(f"{self.url}/villager/")
+        villagers = list()
+        for villager in data:
+            name = villager.get("villager_key")
+            if name is not None:
+                villagers.append(name)
+        return villagers

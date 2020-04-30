@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from nookipedia.api import API, CachedAPI
 from nookipedia.models import Critter, Fossil, Villager
@@ -11,7 +11,7 @@ def is_valid(data: dict) -> bool:
 
 
 class Nookipedia:
-    def __init__(self, api_key: str, cached_api=False, cached_objects=False):
+    def __init__(self, api_key: str, cached_api=False):
         if cached_api:
             self.api = CachedAPI(api_key)
         else:
@@ -28,6 +28,9 @@ class Nookipedia:
 
     async def get_today_raw(self, date: str = "") -> dict:
         return await self.api.get_today(date)
+
+    async def get_villager_list(self) -> List[str]:
+        return await self.api.get_villager_list()
 
     async def get_villager(self, name: str) -> Optional[Villager]:
         data = await self.api.get_villager(name)
