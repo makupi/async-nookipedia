@@ -29,6 +29,12 @@ class API:
     async def get_villager_list(self) -> List[str]:
         return await self._get_villager_list()
 
+    async def get_critter_list(self) -> List[str]:
+        return await self._get_critter_list()
+
+    async def get_fossil_list(self) -> List[str]:
+        return await self._get_fossil_list()
+
     async def _get_villager(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/villager/{name}/")
 
@@ -49,3 +55,22 @@ class API:
             if name is not None:
                 villagers.append(name)
         return villagers
+
+    async def _get_critter_list(self) -> List[str]:
+        return []  # doesn't exist yet
+        data = await self._fetch_json(f"{self.url}/critter/")
+        critters = list()
+        for critter in data:
+            name = critter.get("critter_key")
+            if name is not None:
+                critters.append(name)
+        return critters
+
+    async def _get_fossil_list(self) -> List[str]:
+        data = await self._fetch_json(f"{self.url}/fossil/")
+        fossils = list()
+        for fossil in data:
+            name = fossil.get("fossil_key")
+            if name is not None:
+                fossils.append(name)
+        return fossils

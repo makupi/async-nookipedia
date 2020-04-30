@@ -32,6 +32,12 @@ class Nookipedia:
     async def get_villager_list(self) -> List[str]:
         return await self.api.get_villager_list()
 
+    async def get_critter_list(self) -> List[str]:
+        return await self.api.get_critter_list()
+
+    async def get_fossil_list(self) -> List[str]:
+        return await self.api.get_fossil_list()
+
     async def get_villager(self, name: str) -> Optional[Villager]:
         data = await self.api.get_villager(name)
         if not is_valid(data):
