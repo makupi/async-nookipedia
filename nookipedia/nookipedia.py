@@ -1,6 +1,6 @@
 from typing import Optional
 
-from nookipedia.api import API
+from nookipedia.api import API, CachedAPI
 from nookipedia.models import Critter, Fossil, Villager
 
 
@@ -11,8 +11,20 @@ def is_valid(data: dict) -> bool:
 
 
 class Nookipedia:
-    def __init__(self, api_key: str):
-        self.api = API(api_key)
+    def __init__(self, api_key: str, cached_api=False, cached_objects=False):
+        if cached_api:
+            self.api = CachedAPI(api_key)
+        else:
+            self.api = API(api_key)
+
+    async def get_villager_raw(self, name: str) -> dict:
+        return await self.api.get_villager(name)
+
+    async def get_critter_raw(self, name: str) -> dict:
+        return await self.api.get_critter(name)
+
+    async def get_fossil_raw(self, name: str) -> dict:
+        return await self.api.get_fossil(name)
 
     async def get_villager(self, name: str) -> Optional[Villager]:
         data = await self.api.get_villager(name)

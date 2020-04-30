@@ -13,10 +13,19 @@ class API:
                 return await response.json()
 
     async def get_villager(self, name: str) -> dict:
-        return await self._fetch_json(f"{self.url}/villager/{name}/")
+        return await self._get_villager(name)
 
     async def get_critter(self, name: str) -> dict:
-        return await self._fetch_json(f"{self.url}/critter/{name}/")
+        return await self._get_critter(name)
 
     async def get_fossil(self, name: str) -> dict:
+        return await self._get_fossil(name)
+
+    async def _get_villager(self, name: str) -> dict:
+        return await self._fetch_json(f"{self.url}/villager/{name}/")
+
+    async def _get_critter(self, name: str) -> dict:
+        return await self._fetch_json(f"{self.url}/critter/{name}/")
+
+    async def _get_fossil(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/fossil/{name}/")
