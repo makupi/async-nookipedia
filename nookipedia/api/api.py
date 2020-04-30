@@ -35,6 +35,9 @@ class API:
     async def get_fossil_list(self) -> List[str]:
         return await self._get_fossil_list()
 
+    async def get_category(self, name: str) -> List[str]:
+        return await self._get_category(name)
+
     async def _get_villager(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/villager/{name}/")
 
@@ -57,6 +60,9 @@ class API:
         return villagers
 
     async def _get_critter_list(self) -> List[str]:
+        print(
+            "ERROR get_critter_list: Unfortunately critter list is not supported by the Nookipedia API yet."
+        )
         return []  # doesn't exist yet
         data = await self._fetch_json(f"{self.url}/critter/")
         critters = list()
@@ -74,3 +80,16 @@ class API:
             if name is not None:
                 fossils.append(name)
         return fossils
+
+    async def _get_category(self, name: str) -> List[str]:
+        api_url = (
+            f"https://nookipedia.com/w/api.php"
+            f"?action=query&list=categorymembers&cmlimit=max&format=json&cmtitle=Category:{name}"
+        )
+        data = await self._fetch_json(api_url)
+        members = data.get("query").get("categorymembers")
+        names = list()
+        for member in members:
+            name = member.get("title")
+            names.append(name)
+        return names
