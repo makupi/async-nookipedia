@@ -21,6 +21,9 @@ class API:
     async def get_fossil(self, name: str) -> dict:
         return await self._get_fossil(name)
 
+    async def get_today(self, date: str = "") -> dict:
+        return await self._get_today(date)
+
     async def _get_villager(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/villager/{name}/")
 
@@ -29,3 +32,6 @@ class API:
 
     async def _get_fossil(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/fossil/{name}/")
+
+    async def _get_today(self, date: str = "") -> dict:
+        return await self._fetch_json(f"{self.url}/today/{date}/")

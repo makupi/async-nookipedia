@@ -26,6 +26,9 @@ class Nookipedia:
     async def get_fossil_raw(self, name: str) -> dict:
         return await self.api.get_fossil(name)
 
+    async def get_today_raw(self, date: str = "") -> dict:
+        return await self.api.get_today(date)
+
     async def get_villager(self, name: str) -> Optional[Villager]:
         data = await self.api.get_villager(name)
         if not is_valid(data):
