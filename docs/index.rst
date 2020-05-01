@@ -5,9 +5,6 @@
 
 Welcome to async-nookipedia's documentation!
 ============================================
-.. automodule:: nookipedia
-   :members:
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

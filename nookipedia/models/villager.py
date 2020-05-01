@@ -2,7 +2,13 @@ from .cached_object import CachedObject
 
 
 class Villager(CachedObject):
+    """
+
+    :param data: JSON from API endpoint as dict.
+    """
+
     def __init__(self, data: dict):
+
         super().__init__(data)
         self.message = data.get("message")
         self.name = data.get("name")
