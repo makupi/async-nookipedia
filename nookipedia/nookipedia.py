@@ -11,7 +11,14 @@ def is_valid(data: dict) -> bool:
 
 
 class Nookipedia:
-    def __init__(self, api_key: str, cached_api=False):
+    """Main API to be used to access the Nookipedia API.
+
+    Args:
+        api_key: API key to access the Nookipedia API.
+        cached_api: Whether or not the API requests should be cached in memory.
+    """
+
+    def __init__(self, api_key: str, cached_api: bool = False):
         if cached_api:
             self.api = CachedAPI(api_key)
         else:
