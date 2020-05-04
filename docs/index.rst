@@ -6,6 +6,7 @@
 
 .. image:: _public/Nookipedia_Leaf.png
    :width: 100
+   :target: https://nookipedia.com/
    :align: right
 
 async-nookipedia
