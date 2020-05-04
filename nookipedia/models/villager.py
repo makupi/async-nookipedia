@@ -3,8 +3,35 @@ from .cached_object import CachedObject
 
 class Villager(CachedObject):
     """
+    Object representing a Villager.
 
     :param data: JSON from API endpoint as dict.
+
+    :var self.message: message from nookipedia
+    :var self.name: name of the villager
+    :var self.image: url to the image of the villager
+    :var self.quote:
+    :var self.gender:
+    :var self.personality:
+    :var self.species:
+    :var self.birthday:
+    :var self.sign: villagers zodiac sign
+    :var self.phrase:
+    :var self.clothes:
+    :var self.islander_favorite:
+    :var self.islander_allergic:
+    :var self.picture: url to an image of the villagers framed picture
+    :var self.siblings:
+    :var self.skill:
+    :var self.goal:
+    :var self.fear:
+    :var self.fav_clothing:
+    :var self.least_fav_clothing:
+    :var self.fav_color:
+    :var self.coffee_type:
+    :var self.coffee_milk:
+    :var self.coffee_sugar:
+    :var self.link: url to the nookipedia page of the villager
     """
 
     def __init__(self, data: dict):
