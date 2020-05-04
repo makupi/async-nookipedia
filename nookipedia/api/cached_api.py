@@ -8,7 +8,7 @@ from nookipedia.api import API
 EXPIRE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-def valid_cache(data: dict) -> bool:
+def _valid_cache(data: dict) -> bool:
     api_cache_expire = data.get("api-cache-expire")
     us_eastern = tz.gettz("US/Eastern")
     if api_cache_expire is None:
@@ -23,10 +23,10 @@ def valid_cache(data: dict) -> bool:
     return False
 
 
-def check_cache(name: str, cache: dict) -> Optional[dict]:
+def _check_cache(name: str, cache: dict) -> Optional[dict]:
     if name in cache:
         data = cache.get(name)
-        if valid_cache(data):
+        if _valid_cache(data):
             return data
     return None
 
@@ -39,21 +39,21 @@ class CachedAPI(API):
         self.critter_cache = {}
 
     async def get_villager(self, name: str) -> dict:
-        villager = check_cache(name, self.villager_cache)
+        villager = _check_cache(name, self.villager_cache)
         if villager is None:
             villager = await self._get_villager(name)
             self.villager_cache[name] = villager
         return villager
 
     async def get_critter(self, name: str) -> dict:
-        critter = check_cache(name, self.critter_cache)
+        critter = _check_cache(name, self.critter_cache)
         if critter is None:
             critter = await self._get_critter(name)
             self.critter_cache[name] = critter
         return critter
 
     async def get_fossil(self, name: str) -> dict:
-        fossil = check_cache(name, self.fossil_cache)
+        fossil = _check_cache(name, self.fossil_cache)
         if fossil is None:
             fossil = await self._get_fossil(name)
             self.fossil_cache[name] = fossil
