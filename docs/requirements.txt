@@ -6,3 +6,4 @@ pygments
 aiohttp
 importlib_metadata
 python-dateutil
+async-nookipedia
