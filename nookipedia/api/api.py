@@ -4,6 +4,12 @@ import aiohttp
 
 
 class API:
+    """
+    Uncached access to Nookipedia API endpoints
+
+    :param api_key: Nookipedia API key
+    """
+
     def __init__(self, api_key):
         self.api_key = api_key
         self.url = "https://nookipedia.com/api"
@@ -15,27 +21,72 @@ class API:
                 return await response.json()
 
     async def get_villager(self, name: str) -> dict:
+        """
+        /villager/<name>/
+
+        :param name: name of villager to fetch
+        :return: JSON response as dict
+        """
         return await self._get_villager(name)
 
     async def get_critter(self, name: str) -> dict:
+        """
+        /critter/<name>/
+
+        :param name: name of critter to fetch
+        :return: JSON response as dict
+        """
         return await self._get_critter(name)
 
     async def get_fossil(self, name: str) -> dict:
+        """
+        /fossil/<name>/
+
+        :param name: name of fossil to fetch
+        :return: JSON response as dict
+        """
         return await self._get_fossil(name)
 
     async def get_today(self, date: str = "") -> dict:
+        """
+        /today/<date>/
+
+        :param date: Optional, date in strtotime format (e.g. "tomorrow", "+2 days")
+        :return: JSON response as dict
+        """
         return await self._get_today(date)
 
     async def get_villager_list(self) -> List[str]:
+        """
+        parses /villager/ as list of villager names
+
+        :return: list of villager names
+        """
         return await self._get_villager_list()
 
     async def get_critter_list(self) -> List[str]:
+        """
+        parses /critter/ as list of critter names
+
+        :return: list of critter names
+        """
         return await self._get_critter_list()
 
     async def get_fossil_list(self) -> List[str]:
+        """
+        parses /fossil/ as list of fossil names
+
+        :return: list of fossil names
+        """
         return await self._get_fossil_list()
 
     async def get_category(self, name: str) -> List[str]:
+        """
+        Uses the Category API endpoint to try and get a list of all names in a certain category.
+
+        :param name: name of the category to get
+        :return: list of names in that category
+        """
         return await self._get_category(name)
 
     async def _get_villager(self, name: str) -> dict:

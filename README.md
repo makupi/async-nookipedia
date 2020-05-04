@@ -1,17 +1,23 @@
 # async-nookipedia
 Async API wrapper for Nookipedia API utilizing the [aiohttp](https://docs.aiohttp.org/en/stable/) package.
 
+
+
 ## Beta
 This package is currently in beta and not yet fully finished. 
+
 
 ## Installation
 async-nookipedia can be installed via pip.
 
 `pip install async-nookipedia`
 
+
+
 ## Documentation
 
 Proper docs are coming soon!
+
 
 ## Usage
 ```python
@@ -45,3 +51,4 @@ loop.run_until_complete(main())
 If you're having any issues or want additional features please create an Issue on [github](https://github.com/makupi/async-nookipedia/issues).
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A015HXK)
+
