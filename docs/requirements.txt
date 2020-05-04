@@ -3,7 +3,6 @@ autodoc
 Flask-Sphinx-Themes
 sphinxcontrib-napoleon
 pygments
-python
 aiohttp
 importlib_metadata
 python-dateutil
