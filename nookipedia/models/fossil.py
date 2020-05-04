@@ -3,7 +3,7 @@ from .cached_object import CachedObject
 
 class Fossil(CachedObject):
     """
-        Object representing a Critter.
+        Object representing a Fossil.
 
         :param data: JSON from API endpoint as dict.
 
