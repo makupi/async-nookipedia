@@ -1,0 +1,5 @@
+sphinx
+autodoc
+Flask-Sphinx-Themes
+sphinxcontrib-napoleon
+pygments
