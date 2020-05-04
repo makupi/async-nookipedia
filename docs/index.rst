@@ -12,7 +12,9 @@
 async-nookipedia
 ============================================
 
-Welcome to the async-nookipedia docs. An API wrapper for the private `Nookipedia API <https://nookipedia.com/api/>`_ for the `Nookipedia Wiki <https://nookipedia.com/>`_.
+Welcome to the async-nookipedia docs. An API wrapper for the private `Nookipedia API <https://nookipedia.com/api/>`_ for the `Nookipedia Wiki <https://nookipedia.com/>`_.    
+
+   *async-nookipedia is not created or managed by nookipedia.*
 
 Installation
 ============================================
@@ -50,8 +52,9 @@ Basic Usage
 Caching
 ============================================
 
-If **cache_api=True** is used the API requests made to nookipedia will be automatically stored in-memory until the "api-cache-expire" time is reached.
-"api-cache-require" is a timestamp fro when the cache on nookipedia's end expires.
+If **cache_api=True** is used the API requests made to nookipedia will be automatically stored in-memory until the "api-cache-expire" time is reached.    
+
+"api-cache-require" is a timestamp for when the cache on nookipedia's end expires.
 
 
 
@@ -80,4 +83,6 @@ If you're having any issues with the API wrapper open an Issue on `github <https
 Donate
 ==================
 
-If you like the project and think about supporting me, you can buy me a coffee on `ko-fi <https://ko-fi.com/makubob>`_. <3
+If you like the project and think about supporting me, you can buy me a coffee on `ko-fi <https://ko-fi.com/makubob>`_. <3    
+
+
