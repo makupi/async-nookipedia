@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from nookipedia.api import API, CachedAPI
-from nookipedia.models import Fish, Fossil, Villager
+from nookipedia.models import Fish, Fossil, Villager, Bug
 
 
 def is_valid(data: dict) -> bool:
@@ -42,17 +42,17 @@ class Nookipedia:
         """
         return await self.api.get_bug(name)
 
-    async def get_fossil_raw(self, name: str) -> dict:
-        """
-        :param name: The name of the fossil to get
-        """
-        return await self.api.get_fossil(name)
+    # async def get_fossil_raw(self, name: str) -> dict:
+    #     """
+    #     :param name: The name of the fossil to get
+    #     """
+    #     return await self.api.get_fossil(name)
 
-    async def get_today_raw(self, date: Optional[str] = None) -> dict:
-        """
-        :param date: Optional, the day in strtotime format (e.g. "tomororw", "+2 days")
-        """
-        return await self.api.get_today(date)
+    # async def get_today_raw(self, date: Optional[str] = None) -> dict:
+    #     """
+    #     :param date: Optional, the day in strtotime format (e.g. "tomororw", "+2 days")
+    #     """
+    #     return await self.api.get_today(date)
 
     async def get_villager_list(self) -> List[str]:
         """
@@ -60,20 +60,23 @@ class Nookipedia:
         """
         return await self.api.get_villager_list()
 
-    async def get_critter_list(self) -> List[str]:
+    async def get_fish_list(self) -> List[str]:
         """
-        Returns a list of all critter names.
+        Returns a list of all fish names.
+        """
+        return await self.api.get_fish_list()
 
-        Warning:
-            The critter list endpoint is currently not yet supported by the API and will return an empty list.
+    async def get_bug_list(self) -> List[str]:
         """
-        return await self.api.get_critter_list()
+        Returns a list of all bug names.
+        """
+        return await self.api.get_bug_list()
 
-    async def get_fossil_list(self) -> List[str]:
-        """
-        Returns a list of all fossil names.
-        """
-        return await self.api.get_fossil_list()
+    # async def get_fossil_list(self) -> List[str]:
+    #     """
+    #     Returns a list of all fossil names.
+    #     """
+    #     return await self.api.get_fossil_list()
 
     async def get_category(self, name: str) -> List[str]:
         """
@@ -96,13 +99,24 @@ class Nookipedia:
     async def get_fish(self, name: str) -> Optional[Fish]:
         """
 
-        :param name: The name of the critter to get.
-        :return: Critter object, None if not found.
+        :param name: The name of the Fish to get.
+        :return: Fish object, None if not found.
         """
         data = await self.api.get_fish(name)
         if not is_valid(data):
             return None
         return Fish(data=data)
+
+    async def get_bug(self, name: str) -> Optional[Bug]:
+        """
+
+        :param name: The name of the Bug to get.
+        :return: Bug object, None if not found.
+        """
+        data = await self.api.get_bug(name)
+        if not is_valid(data):
+            return None
+        return Bug(data=data)
 
     async def get_fossil(self, name: str) -> Optional[Fossil]:
         """
