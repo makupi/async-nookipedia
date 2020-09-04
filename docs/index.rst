@@ -40,10 +40,10 @@ Basic Usage
        api = Nookipedia(api_key=api_key, cached_api=True)
        villager = await api.get_villager('marshal')
        print(villager.name)
-       critter = await api.get_critter('spider')
-       print(critter.name)
-       fossil = await api.get_fossil('amber')
-       print(fossil.name)
+       bug = await api.get_bug('spider')
+       print(bug.name)
+       fish = await api.get_fish('sea bass')
+       print(fish.name)
 
 
    loop = asyncio.get_event_loop()

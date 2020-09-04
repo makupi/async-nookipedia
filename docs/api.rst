@@ -15,16 +15,16 @@ Villager
 .. autoclass:: Villager
     :members:
 
-Critter
+Fish
 =============================
 
-.. autoclass:: Critter
+.. autoclass:: Fish
     :members:
 
-Fossil
+Bug
 =============================
 
-.. autoclass:: Fossil
+.. autoclass:: Bug
     :members:
 
 
