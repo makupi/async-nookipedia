@@ -18,7 +18,7 @@ class API:
         self.api_key = api_key
         self.url = "https://api.nookipedia.com/"
 
-    async def _fetch_json(self, url: str) -> Union[List[dict], dict]:
+    async def _fetch_json(self, url: str) -> Union[List[str], List[dict], dict]:
         headers = {"X-API-KEY": self.api_key, "Accept-Version": SUPPORTED_API_VERSION}
         async with aiohttp.ClientSession() as session:
             async with session.get(url=url, headers=headers) as response:
@@ -34,8 +34,8 @@ class API:
 
     async def get_villager(self, name: str) -> dict:
         """
-        /villager/<name>/
-        NOT YET SUPPORTED BY NEW API.
+        GET /villagers?name=name
+
         :param name: name of villager to fetch
         :return: JSON response as dict
         """
@@ -43,7 +43,7 @@ class API:
 
     async def get_fish(self, name: str) -> dict:
         """
-        /nh/fish/<name>
+        GET /nh/fish/<name>
 
         :param name: name of new horizon fish to fetch
         :return: JSON response as dict
@@ -52,7 +52,7 @@ class API:
 
     async def get_bug(self, name: str) -> dict:
         """
-        /nh/bug/<name>
+        GET /nh/bug/<name>
 
         :param name: name of new horizon bug to fetch
         :return: JSON response as dict
@@ -77,21 +77,29 @@ class API:
         """
         return await self._get_today(date)
 
-    async def get_villager_list(self) -> List[str]:
+    async def get_villager_names(self) -> List[str]:
         """
-        parses /villager/ as list of villager names
+        GET /villagers?excludedetails=true to return list of villager names
 
         :return: list of villager names
         """
         return await self._get_villager_list()
 
-    async def get_critter_list(self) -> List[str]:
+    async def get_fish_names(self) -> List[str]:
         """
-        parses /critter/ as list of critter names
+        GET /nh/fish?excludedetails=true to return a list of fish names
 
         :return: list of critter names
         """
-        return await self._get_critter_list()
+        return await self._get_fish_names()
+
+    async def get_bug_names(self) -> List[str]:
+        """
+        GET /nh/bug?excludedetails=true to return a list of bug names
+
+        :return: list of critter names
+        """
+        return await self._get_bug_names()
 
     async def get_fossil_list(self) -> List[str]:
         """
@@ -111,12 +119,10 @@ class API:
         return await self._get_category(name)
 
     async def _get_villagers(self) -> List[dict]:
-        return await self._fetch_json(f"{self.url}/villagers")
+        return await self._fetch_json(f"{self.url}/villagers&game=NH")
 
     async def _get_villager(self, name: str) -> dict:
-        logging.error("/villager is not yet supported by the new nookipedia API.")
-        return {}
-        return await self._fetch_json(f"{self.url}/villager/{name}/")
+        return await self._fetch_json(f"{self.url}/villagers&game=NH?name={name}/")
 
     async def _get_fish(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/nh/fish/{name}")
@@ -126,37 +132,31 @@ class API:
 
     async def _get_fossil(self, name: str) -> dict:
         logging.error("/fossil is not yet supported by the new nookipedia API.")
+        return {}
         return await self._fetch_json(f"{self.url}/fossil/{name}/")
 
     async def _get_today(self, date: str = "") -> dict:
         logging.error("/today is not yet supported by the new nookipedia API.")
+        return {}
         return await self._fetch_json(f"{self.url}/today/{date}/")
 
-    async def _get_villager_list(self) -> List[str]:
-        # TODO: Update to new villagers endpoint
-        data = await self._fetch_json(f"{self.url}/villager/")
-        villagers = list()
-        for villager in data:
-            name = villager.get("villager_key")
-            if name is not None:
-                villagers.append(name)
-        return villagers
-
-    async def _get_critter_list(self) -> List[str]:
-        print(
-            "ERROR get_critter_list: Unfortunately critter list is not supported by the Nookipedia API yet."
+    async def _get_villager_names(self) -> List[str]:
+        data = await self._fetch_json(
+            f"{self.url}/villagers?game=NH&excludedetails=true"
         )
-        return []  # doesn't exist yet
-        data = await self._fetch_json(f"{self.url}/critter/")
-        critters = list()
-        for critter in data:
-            name = critter.get("critter_key")
-            if name is not None:
-                critters.append(name)
-        return critters
+        return data
+
+    async def _get_fish_names(self) -> List[str]:
+        data = await self._fetch_json(f"{self.url}/nh/fish?excludedetails=true")
+        return data
+
+    async def _get_bug_names(self) -> List[str]:
+        data = await self._fetch_json(f"{self.url}/nh/bug?excludedetails=true")
+        return data
 
     async def _get_fossil_list(self) -> List[str]:
         logging.error("/fossil/ is not yet supported by the new nookipedia API.")
+        return []
         data = await self._fetch_json(f"{self.url}/fossil/")
         fossils = list()
         for fossil in data:

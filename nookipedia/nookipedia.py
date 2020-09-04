@@ -54,23 +54,23 @@ class Nookipedia:
     #     """
     #     return await self.api.get_today(date)
 
-    async def get_villager_list(self) -> List[str]:
+    async def get_villager_names(self) -> List[str]:
         """
         Returns a list of all villager names.
         """
-        return await self.api.get_villager_list()
+        return await self.api.get_villager_names()
 
-    async def get_fish_list(self) -> List[str]:
+    async def get_fish_names(self) -> List[str]:
         """
         Returns a list of all fish names.
         """
-        return await self.api.get_fish_list()
+        return await self.api.get_fish_names()
 
-    async def get_bug_list(self) -> List[str]:
+    async def get_bug_names(self) -> List[str]:
         """
         Returns a list of all bug names.
         """
-        return await self.api.get_bug_list()
+        return await self.api.get_bug_names()
 
     # async def get_fossil_list(self) -> List[str]:
     #     """
