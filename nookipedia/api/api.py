@@ -1,6 +1,10 @@
-from typing import List
+import logging
+from typing import List, Union
 
 import aiohttp
+
+
+SUPPORTED_API_VERSION = "1.0.0"
 
 
 class API:
@@ -12,36 +16,53 @@ class API:
 
     def __init__(self, api_key):
         self.api_key = api_key
-        self.url = "https://nookipedia.com/api"
+        self.url = "https://api.nookipedia.com/"
 
-    async def _fetch_json(self, url: str) -> dict:
-        headers = {"X-API-KEY": self.api_key}
+    async def _fetch_json(self, url: str) -> Union[List[dict], dict]:
+        headers = {"X-API-KEY": self.api_key, "Accept-Version": SUPPORTED_API_VERSION}
         async with aiohttp.ClientSession() as session:
             async with session.get(url=url, headers=headers) as response:
                 return await response.json()
 
+    async def get_villagers(self) -> List[dict]:
+        """
+        GET /villagers
+
+        :return: List of villagers as dict
+        """
+        return await self._get_villagers()
+
     async def get_villager(self, name: str) -> dict:
         """
         /villager/<name>/
-
+        NOT YET SUPPORTED BY NEW API.
         :param name: name of villager to fetch
         :return: JSON response as dict
         """
         return await self._get_villager(name)
 
-    async def get_critter(self, name: str) -> dict:
+    async def get_fish(self, name: str) -> dict:
         """
-        /critter/<name>/
+        /nh/fish/<name>
 
-        :param name: name of critter to fetch
+        :param name: name of new horizon fish to fetch
         :return: JSON response as dict
         """
-        return await self._get_critter(name)
+        return await self._get_fish(name)
+
+    async def get_bug(self, name: str) -> dict:
+        """
+        /nh/bug/<name>
+
+        :param name: name of new horizon bug to fetch
+        :return: JSON response as dict
+        """
+        return await self._get_bug(name)
 
     async def get_fossil(self, name: str) -> dict:
         """
         /fossil/<name>/
-
+        NOT YET SUPPORTED BY NEW API.
         :param name: name of fossil to fetch
         :return: JSON response as dict
         """
@@ -50,7 +71,7 @@ class API:
     async def get_today(self, date: str = "") -> dict:
         """
         /today/<date>/
-
+        NOT YET SUPPORTED BY NEW API.
         :param date: Optional, date in strtotime format (e.g. "tomorrow", "+2 days")
         :return: JSON response as dict
         """
@@ -89,19 +110,30 @@ class API:
         """
         return await self._get_category(name)
 
+    async def _get_villagers(self) -> List[dict]:
+        return await self._fetch_json(f"{self.url}/villagers")
+
     async def _get_villager(self, name: str) -> dict:
+        logging.error("/villager is not yet supported by the new nookipedia API.")
+        return {}
         return await self._fetch_json(f"{self.url}/villager/{name}/")
 
-    async def _get_critter(self, name: str) -> dict:
-        return await self._fetch_json(f"{self.url}/critter/{name}/")
+    async def _get_fish(self, name: str) -> dict:
+        return await self._fetch_json(f"{self.url}/nh/fish/{name}")
+
+    async def _get_bug(self, name: str) -> dict:
+        return await self._fetch_json(f"{self.url}/nh/bug/{name}")
 
     async def _get_fossil(self, name: str) -> dict:
+        logging.error("/fossil is not yet supported by the new nookipedia API.")
         return await self._fetch_json(f"{self.url}/fossil/{name}/")
 
     async def _get_today(self, date: str = "") -> dict:
+        logging.error("/today is not yet supported by the new nookipedia API.")
         return await self._fetch_json(f"{self.url}/today/{date}/")
 
     async def _get_villager_list(self) -> List[str]:
+        # TODO: Update to new villagers endpoint
         data = await self._fetch_json(f"{self.url}/villager/")
         villagers = list()
         for villager in data:
@@ -124,6 +156,7 @@ class API:
         return critters
 
     async def _get_fossil_list(self) -> List[str]:
+        logging.error("/fossil/ is not yet supported by the new nookipedia API.")
         data = await self._fetch_json(f"{self.url}/fossil/")
         fossils = list()
         for fossil in data:
