@@ -51,7 +51,7 @@ class Villager(CachedObject):
         self.previous_phrases = data.get("prev_phrases")
         self.clothing = data.get("clothing")
         self.islander = data.get("islander")
-        nh_details = data.get("nh_details")
+        nh_details = data.get("nh_details", {})
         self.photo_url = nh_details.get("photo_url")
         self.icon_url = nh_details.get("icon_url")
         self.sub_personality = nh_details.get("sub_personality")

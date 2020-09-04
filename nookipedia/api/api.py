@@ -16,7 +16,7 @@ class API:
 
     def __init__(self, api_key):
         self.api_key = api_key
-        self.url = "https://api.nookipedia.com/"
+        self.url = "https://api.nookipedia.com"
 
     async def _fetch_json(self, url: str) -> Union[List[str], List[dict], dict]:
         headers = {"X-API-KEY": self.api_key, "Accept-Version": SUPPORTED_API_VERSION}
@@ -119,10 +119,12 @@ class API:
         return await self._get_category(name)
 
     async def _get_villagers(self) -> List[dict]:
-        return await self._fetch_json(f"{self.url}/villagers&game=NH")
+        return await self._fetch_json(f"{self.url}/villagers&game=NH?nhdetails=true")
 
     async def _get_villager(self, name: str) -> dict:
-        return await self._fetch_json(f"{self.url}/villagers&game=NH?name={name}/")
+        return await self._fetch_json(
+            f"{self.url}/villagers?game=NH&nhdetails=true&name={name}"
+        )
 
     async def _get_fish(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/nh/fish/{name}")

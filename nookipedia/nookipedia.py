@@ -5,7 +5,10 @@ from nookipedia.models import Fish, Fossil, Villager, Bug
 
 
 def is_valid(data: dict) -> bool:
+    print(data)
     if "error" in data:
+        return False
+    if type(data) is list and len(data) == 0:
         return False
     return True
 
@@ -94,7 +97,7 @@ class Nookipedia:
         data = await self.api.get_villager(name)
         if not is_valid(data):
             return None
-        return Villager(data=data)
+        return Villager(data=data[0])
 
     async def get_fish(self, name: str) -> Optional[Fish]:
         """
