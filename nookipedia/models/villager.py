@@ -7,58 +7,61 @@ class Villager(CachedObject):
 
     :param data: JSON from API endpoint as dict.
 
-    :var self.message: message from nookipedia
-    :var self.name: name of the villager
+    :var self.url: url to the nookipedia page of the villager
+    :var self.name:
     :var self.image: url to the image of the villager
-    :var self.quote:
-    :var self.gender:
-    :var self.personality:
     :var self.species:
+    :var self.personality:
+    :var self.gender:
     :var self.birthday:
-    :var self.sign: villagers zodiac sign
+    :var self.sign:
+    :var self.quote:
     :var self.phrase:
-    :var self.clothes:
-    :var self.islander_favorite:
-    :var self.islander_allergic:
-    :var self.picture: url to an image of the villagers framed picture
-    :var self.siblings:
-    :var self.skill:
-    :var self.goal:
-    :var self.fear:
-    :var self.fav_clothing:
-    :var self.least_fav_clothing:
-    :var self.fav_color:
-    :var self.coffee_type:
-    :var self.coffee_milk:
-    :var self.coffee_sugar:
-    :var self.link: url to the nookipedia page of the villager
+    :var self.previous_phrases:
+    :var self.clothing:
+    :var self.islander: boolean whether the villager is an islander or not
+    :var self.photo_url:
+    :var self.icon_url:
+    :var self.sub_personality:
+    :var self.clothing_variant:
+    :var self.favourite_styles:
+    :var self.favourite_colors:
+    :var self.hobby:
+    :var self.house_interior_image:
+    :var self.house_exterior_image:
+    :var self.house_wallpaper:
+    :var self.house_flooring:
+    :var self.house_music:
+    :var self.house_music_note:
     """
 
     def __init__(self, data: dict):
 
         super().__init__(data)
-        self.message = data.get("message")
+        self.url = data.get("url")
         self.name = data.get("name")
-        self.image = data.get("image")
-        self.quote = data.get("quote")
-        self.gender = data.get("gender")
-        self.personality = data.get("personality")
+        self.image = data.get("image_url")
         self.species = data.get("species")
+        self.personality = data.get("personality")
+        self.gender = data.get("gender")
         self.birthday = data.get("birthday")
         self.sign = data.get("sign")
+        self.quote = data.get("quote")
         self.phrase = data.get("phrase")
-        self.clothes = data.get("clothes")
-        self.islander_favorite = data.get("islander-favorite")
-        self.islander_allergic = data.get("islander-allergic")
-        self.picture = data.get("picture")
-        self.siblings = data.get("siblings")
-        self.skill = data.get("skill")
-        self.goal = data.get("goal")
-        self.fear = data.get("fear")
-        self.fav_clothing = data.get("favclothing")
-        self.least_fav_clothing = data.get("leastfavclothing")
-        self.fav_color = data.get("favcolor")
-        self.coffee_type = data.get("coffee-type")
-        self.coffee_milk = data.get("coffee-milk")
-        self.coffee_sugar = data.get("coffee-sugar")
-        self.link = data.get("link")
+        self.previous_phrases = data.get("prev_phrases")
+        self.clothing = data.get("clothing")
+        self.islander = data.get("islander")
+        nh_details = data.get("nh_details")
+        self.photo_url = nh_details.get("photo_url")
+        self.icon_url = nh_details.get("icon_url")
+        self.sub_personality = nh_details.get("sub_personality")
+        self.clothing_variant = nh_details.get("clothing_variant")
+        self.favourite_styles = nh_details.get("fav_styles")
+        self.favourite_colors = nh_details.get("fav_colors")
+        self.hobby = nh_details.get("hobby")
+        self.house_interior_image = nh_details.get("house_interior_url")
+        self.house_exterior_image = nh_details.get("house_exterior_url")
+        self.house_wallpaper = nh_details.get("house_wallpaper")
+        self.house_flooring = nh_details.get("house_flooring")
+        self.house_music = nh_details.get("house_music")
+        self.house_music_note = nh_details.get("house_music_note")
