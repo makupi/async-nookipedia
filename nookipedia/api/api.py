@@ -130,7 +130,7 @@ class API:
         return await self._fetch_json(f"{self.url}/nh/fish/{name}")
 
     async def _get_bug(self, name: str) -> dict:
-        return await self._fetch_json(f"{self.url}/nh/bug/{name}")
+        return await self._fetch_json(f"{self.url}/nh/bugs/{name}")
 
     async def _get_fossil(self, name: str) -> dict:
         logging.error("/fossil is not yet supported by the new nookipedia API.")

@@ -5,8 +5,9 @@ from nookipedia.models import Fish, Fossil, Villager, Bug
 
 
 def is_valid(data: dict) -> bool:
-    print(data)
     if "error" in data:
+        return False
+    if "title" in data and data["title"] == "Resource not found.":
         return False
     if type(data) is list and len(data) == 0:
         return False
@@ -108,7 +109,7 @@ class Nookipedia:
         data = await self.api.get_fish(name)
         if not is_valid(data):
             return None
-        return Fish(data=data)
+        return Fish(data=data[0])
 
     async def get_bug(self, name: str) -> Optional[Bug]:
         """
@@ -119,7 +120,7 @@ class Nookipedia:
         data = await self.api.get_bug(name)
         if not is_valid(data):
             return None
-        return Bug(data=data)
+        return Bug(data=data[0])
 
     async def get_fossil(self, name: str) -> Optional[Fossil]:
         """
