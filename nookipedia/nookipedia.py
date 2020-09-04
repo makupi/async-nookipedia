@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from nookipedia.api import API, CachedAPI
-from nookipedia.models import Critter, Fossil, Villager
+from nookipedia.models import Fish, Fossil, Villager
 
 
 def is_valid(data: dict) -> bool:
@@ -93,16 +93,16 @@ class Nookipedia:
             return None
         return Villager(data=data)
 
-    async def get_critter(self, name: str) -> Optional[Critter]:
+    async def get_fish(self, name: str) -> Optional[Fish]:
         """
 
         :param name: The name of the critter to get.
         :return: Critter object, None if not found.
         """
-        data = await self.api.get_critter(name)
+        data = await self.api.get_fish(name)
         if not is_valid(data):
             return None
-        return Critter(data=data)
+        return Fish(data=data)
 
     async def get_fossil(self, name: str) -> Optional[Fossil]:
         """
