@@ -36,7 +36,8 @@ class CachedAPI(API):
         super().__init__(api_key)
         self.villager_cache = {}
         self.fossil_cache = {}
-        self.critter_cache = {}
+        self.fish_cache = {}
+        self.bug_cache = {}
 
     async def get_villager(self, name: str) -> dict:
         villager = _check_cache(name, self.villager_cache)
@@ -45,12 +46,19 @@ class CachedAPI(API):
             self.villager_cache[name] = villager
         return villager
 
-    async def get_critter(self, name: str) -> dict:
-        critter = _check_cache(name, self.critter_cache)
-        if critter is None:
-            critter = await self._get_critter(name)
-            self.critter_cache[name] = critter
-        return critter
+    async def get_fish(self, name: str) -> dict:
+        fish = _check_cache(name, self.fish_cache)
+        if fish is None:
+            fish = await self._get_fish(name)
+            self.fish_cache[name] = fish
+        return fish
+
+    async def get_bug(self, name: str) -> dict:
+        bug = _check_cache(name, self.bug_cache)
+        if bug is None:
+            bug = await self._get_bug(name)
+            self.bug_cache[name] = bug
+        return bug
 
     async def get_fossil(self, name: str) -> dict:
         fossil = _check_cache(name, self.fossil_cache)

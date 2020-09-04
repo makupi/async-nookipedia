@@ -30,11 +30,17 @@ class Nookipedia:
         """
         return await self.api.get_villager(name)
 
-    async def get_critter_raw(self, name: str) -> dict:
+    async def get_fish_raw(self, name: str) -> dict:
         """
         :param name: The name of the critter to get
         """
-        return await self.api.get_critter(name)
+        return await self.api.get_fish(name)
+
+    async def get_bug_raw(self, name: str) -> dict:
+        """
+        :param name: The name of the critter to get
+        """
+        return await self.api.get_bug(name)
 
     async def get_fossil_raw(self, name: str) -> dict:
         """
@@ -50,22 +56,22 @@ class Nookipedia:
 
     async def get_villager_list(self) -> List[str]:
         """
-            Returns a list of all villager names.
+        Returns a list of all villager names.
         """
         return await self.api.get_villager_list()
 
     async def get_critter_list(self) -> List[str]:
         """
-            Returns a list of all critter names.
+        Returns a list of all critter names.
 
-            Warning:
-                The critter list endpoint is currently not yet supported by the API and will return an empty list.
+        Warning:
+            The critter list endpoint is currently not yet supported by the API and will return an empty list.
         """
         return await self.api.get_critter_list()
 
     async def get_fossil_list(self) -> List[str]:
         """
-            Returns a list of all fossil names.
+        Returns a list of all fossil names.
         """
         return await self.api.get_fossil_list()
 
