@@ -1,23 +1,21 @@
 from .cached_object import CachedObject
 
 
-class Fish(CachedObject):
+class Bug(CachedObject):
     """
-    Object representing a Fish.
+    Object representing a Bug.
 
     :param data: JSON from API endpoint as dict.
     :var self.url: URL to nookipedia.com entry.
-    :var self.name: Name of the Fish
-    :var self.image: URL to the image of the Fish.
+    :var self.name: Name of the Bug
+    :var self.image: URL to the image of the Bug.
     :var self.catchphrase:
-    :var self.catchphrase1: If an additional catchphrase available, otherwise None.
     :var self.catchphrase2: If an additional catchphrase available, otherwise None.
     :var self.time: Time of the day as a string. e.g. "4 PM - 9 AM".
     :var self.location:
-    :var self.shadow_size:
     :var self.rarity:
     :var self.sell_nook:
-    :var self.sell_cj:
+    :var self.sell_flick:
     :var self.tank_width:
     :var self.tank_length:
     :var self.north_months_str: Northern availability as string. e.g. "Mar – Jun; Sep – Nov"
@@ -33,14 +31,12 @@ class Fish(CachedObject):
         self.name = data.get("name")
         self.image = data.get("image")
         self.catchphrase = data.get("catchphrase")
-        self.catchphrase1 = data.get("catchphrase1") or None
         self.catchphrase2 = data.get("catchphrase2") or None
         self.time = data.get("time")
         self.location = data.get("location")
-        self.shadow_size = data.get("shadow_size")
         self.rarity = data.get("rarity")
         self.sell_nook = data.get("sell_nook")
-        self.sell_cj = data.get("sell_cj")
+        self.sell_flick = data.get("sell_flick")
         self.tank_width = data.get("tank_width")
         self.tank_length = data.get("tank_length")
         self.north_months_str = data.get("n_availability")
