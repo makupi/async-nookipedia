@@ -1,10 +1,10 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from nookipedia.api import API, CachedAPI
-from nookipedia.models import Fish, Fossil, Villager, Bug
+from nookipedia.models import Fish, Villager, Bug
 
 
-def is_valid(data: dict) -> bool:
+def is_valid(data: Union[dict, list]) -> bool:
     if "error" in data:
         return False
     if "title" in data and data["title"] == "Resource not found.":
@@ -100,6 +100,16 @@ class Nookipedia:
             return None
         return Villager(**data[0])
 
+    async def get_villagers(self) -> Optional[List[Villager]]:
+        """
+
+        :return: List of Villager objects, None if not found.
+        """
+        data = await self.api.get_villagers()
+        if not is_valid(data):
+            return None
+        return [Villager(**d) for d in data]
+
     async def get_fish(self, name: str) -> Optional[Fish]:
         """
 
@@ -122,13 +132,13 @@ class Nookipedia:
             return None
         return Bug(**data)
 
-    async def get_fossil(self, name: str) -> Optional[Fossil]:
-        """
-
-        :param name: The name of the fossil to get
-        :return: Fossil object, None if not found.
-        """
-        data = await self.api.get_fossil(name)
-        if not is_valid(data):
-            return None
-        return Fossil(**data)
+    # async def get_fossil(self, name: str) -> Optional[Fossil]:
+    #     """
+    #
+    #     :param name: The name of the fossil to get
+    #     :return: Fossil object, None if not found.
+    #     """
+    #     data = await self.api.get_fossil(name)
+    #     if not is_valid(data):
+    #         return None
+    #     return Fossil(**data)

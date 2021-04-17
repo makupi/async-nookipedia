@@ -24,7 +24,7 @@ class API:
             async with session.get(url=url, headers=headers) as response:
                 return await response.json()
 
-    async def get_villagers(self) -> List[dict]:
+    async def get_villagers(self) -> Union[List[dict], dict]:
         """
         GET /villagers
 
@@ -119,7 +119,7 @@ class API:
         return await self._get_category(name)
 
     async def _get_villagers(self) -> List[dict]:
-        return await self._fetch_json(f"{self.url}/villagers&game=NH?nhdetails=true")
+        return await self._fetch_json(f"{self.url}/villagers?nhdetails=true")
 
     async def _get_villager(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/villagers?nhdetails=true&name={name}")
