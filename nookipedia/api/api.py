@@ -171,7 +171,7 @@ class API:
         return data
 
     async def _get_bug_names(self) -> List[str]:
-        data = await self._fetch_json(f"{self.url}/nh/bug?excludedetails=true")
+        data = await self._fetch_json(f"{self.url}/nh/bugs?excludedetails=true")
         return data
 
     async def _get_fossil_list(self) -> List[str]:

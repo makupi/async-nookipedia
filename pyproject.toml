@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "async-nookipedia"
-version = "0.1.2"
+version = "0.1.3"
 description = "async API wrapper for Nookipedia API written in python"
 authors = ["makubob <makupi@icloud.com>"]
 license = "GPL-3.0"
