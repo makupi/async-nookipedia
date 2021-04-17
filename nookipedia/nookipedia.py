@@ -109,7 +109,7 @@ class Nookipedia:
         data = await self.api.get_fish(name)
         if not is_valid(data):
             return None
-        return Fish(data=data[0])
+        return Fish(**data)
 
     async def get_bug(self, name: str) -> Optional[Bug]:
         """
@@ -131,4 +131,4 @@ class Nookipedia:
         data = await self.api.get_fossil(name)
         if not is_valid(data):
             return None
-        return Fossil(data=data)
+        return Fossil(**data)
