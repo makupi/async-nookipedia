@@ -120,7 +120,7 @@ class Nookipedia:
         data = await self.api.get_bug(name)
         if not is_valid(data):
             return None
-        return Bug(data=data[0])
+        return Bug(**data)
 
     async def get_fossil(self, name: str) -> Optional[Fossil]:
         """
