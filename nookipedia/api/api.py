@@ -83,7 +83,7 @@ class API:
 
         :return: list of villager names
         """
-        return await self._get_villager_list()
+        return await self._get_villager_names()
 
     async def get_fish_names(self) -> List[str]:
         """
@@ -141,7 +141,7 @@ class API:
         return await self._fetch_json(f"{self.url}/today/{date}/")
 
     async def _get_villager_names(self) -> List[str]:
-        data = await self._fetch_json(f"{self.url}/villagers?game=NH&excludedetails=true")
+        data = await self._fetch_json(f"{self.url}/villagers?excludedetails=true")
         return data
 
     async def _get_fish_names(self) -> List[str]:
