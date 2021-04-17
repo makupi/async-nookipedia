@@ -7,7 +7,7 @@ from nookipedia.models import Fish, Villager, Bug
 def is_valid(data: Union[dict, list]) -> bool:
     if "error" in data:
         return False
-    if "title" in data and data["title"] == "Resource not found.":
+    if "title" in data and data["title"] in ["Resource not found.", "Failed to validate UUID."]:
         return False
     if type(data) is list and len(data) == 0:
         return False
