@@ -98,7 +98,7 @@ class Nookipedia:
         data = await self.api.get_villager(name)
         if not is_valid(data):
             return None
-        return Villager(data=data[0])
+        return Villager(**data[0])
 
     async def get_fish(self, name: str) -> Optional[Fish]:
         """

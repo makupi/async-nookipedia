@@ -1,67 +1,46 @@
-from .cached_object import CachedObject
+import typing as _t
+
+from pydantic import BaseModel, Field
 
 
-class Villager(CachedObject):
-    """
-    Object representing a Villager.
+class NHDetails(BaseModel):
+    image_url: str
+    photo_url: str
+    icon_url: str
+    quote: str
+    sub_personality: str = Field(alias="sub-personality")
+    catchphrase: str
+    clothing: str
+    clothing_variation: str
+    fav_styles: _t.List[str]
+    fav_colors: _t.List[str]
+    hobby: str
+    house_interior_url: str
+    house_exterior_url: str
+    house_wallpaper: str
+    house_flooring: str
+    house_music: str
+    house_music_note: _t.Optional[str]
 
-    :param data: JSON from API endpoint as dict.
 
-    :var self.url: url to the nookipedia page of the villager
-    :var self.name:
-    :var self.image: url to the image of the villager
-    :var self.species:
-    :var self.personality:
-    :var self.gender:
-    :var self.birthday:
-    :var self.sign:
-    :var self.quote:
-    :var self.phrase:
-    :var self.previous_phrases:
-    :var self.clothing:
-    :var self.islander: boolean whether the villager is an islander or not
-    :var self.photo_url:
-    :var self.icon_url:
-    :var self.sub_personality:
-    :var self.clothing_variant:
-    :var self.favourite_styles:
-    :var self.favourite_colors:
-    :var self.hobby:
-    :var self.house_interior_image:
-    :var self.house_exterior_image:
-    :var self.house_wallpaper:
-    :var self.house_flooring:
-    :var self.house_music:
-    :var self.house_music_note:
-    """
-
-    def __init__(self, data: dict):
-
-        super().__init__(data)
-        self.url = data.get("url")
-        self.name = data.get("name")
-        self.image = data.get("image_url")
-        self.species = data.get("species")
-        self.personality = data.get("personality")
-        self.gender = data.get("gender")
-        self.birthday = data.get("birthday")
-        self.sign = data.get("sign")
-        self.quote = data.get("quote")
-        self.phrase = data.get("phrase")
-        self.previous_phrases = data.get("prev_phrases")
-        self.clothing = data.get("clothing")
-        self.islander = data.get("islander")
-        nh_details = data.get("nh_details", {})
-        self.photo_url = nh_details.get("photo_url")
-        self.icon_url = nh_details.get("icon_url")
-        self.sub_personality = nh_details.get("sub_personality")
-        self.clothing_variant = nh_details.get("clothing_variant")
-        self.favourite_styles = nh_details.get("fav_styles")
-        self.favourite_colors = nh_details.get("fav_colors")
-        self.hobby = nh_details.get("hobby")
-        self.house_interior_image = nh_details.get("house_interior_url")
-        self.house_exterior_image = nh_details.get("house_exterior_url")
-        self.house_wallpaper = nh_details.get("house_wallpaper")
-        self.house_flooring = nh_details.get("house_flooring")
-        self.house_music = nh_details.get("house_music")
-        self.house_music_note = nh_details.get("house_music_note")
+class Villager(BaseModel):
+    id: _t.Optional[str]
+    url: str
+    name: str
+    alt_name: _t.Optional[str]
+    title_color: _t.Optional[str]
+    text_color: _t.Optional[str]
+    image_url: str
+    species: str
+    personality: str
+    gender: str
+    birthday: _t.Optional[str]
+    sign: str
+    quote: _t.Optional[str]
+    phrase: str
+    prev_phrases: _t.List[str]
+    clothing: str
+    islander: bool
+    debut: str
+    appearances: _t.List[str]
+    nh_details: _t.Optional[NHDetails]
