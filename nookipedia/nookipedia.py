@@ -102,7 +102,6 @@ class Nookipedia:
 
     async def get_villagers(self) -> Optional[List[Villager]]:
         """
-
         :return: List of Villager objects, None if not found.
         """
         data = await self.api.get_villagers()
@@ -121,6 +120,15 @@ class Nookipedia:
             return None
         return Fish(**data)
 
+    async def get_fishes(self) -> Optional[List[Fish]]:
+        """
+        :return: List of Fish objects, None if not found.
+        """
+        data = await self.api.get_fishes()
+        if not is_valid(data):
+            return None
+        return [Fish(**d) for d in data]
+
     async def get_bug(self, name: str) -> Optional[Bug]:
         """
 
@@ -131,6 +139,15 @@ class Nookipedia:
         if not is_valid(data):
             return None
         return Bug(**data)
+
+    async def get_bugs(self) -> Optional[List[Bug]]:
+        """
+        :return: List of Bug objects, None if not found.
+        """
+        data = await self.api.get_bugs()
+        if not is_valid(data):
+            return None
+        return [Bug(**d) for d in data]
 
     # async def get_fossil(self, name: str) -> Optional[Fossil]:
     #     """

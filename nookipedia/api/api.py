@@ -41,6 +41,14 @@ class API:
         """
         return await self._get_villager(name)
 
+    async def get_fishes(self) -> Union[List[dict], dict]:
+        """
+        GET /nh/fish
+
+        :return: List of fishes as dict
+        """
+        return await self._get_fishes()
+
     async def get_fish(self, name: str) -> dict:
         """
         GET /nh/fish/<name>
@@ -49,6 +57,14 @@ class API:
         :return: JSON response as dict
         """
         return await self._get_fish(name)
+
+    async def get_bugs(self) -> Union[List[dict], dict]:
+        """
+        GET /nh/bugs
+
+        :return: List of bugs as dict
+        """
+        return await self._get_bugs()
 
     async def get_bug(self, name: str) -> dict:
         """
@@ -124,8 +140,14 @@ class API:
     async def _get_villager(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/villagers?nhdetails=true&name={name}")
 
+    async def _get_fishes(self) -> List[dict]:
+        return await self._fetch_json(f"{self.url}/nh/fish")
+
     async def _get_fish(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/nh/fish/{name}")
+
+    async def _get_bugs(self) -> List[dict]:
+        return await self._fetch_json(f"{self.url}/nh/bugs")
 
     async def _get_bug(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/nh/bugs/{name}")
