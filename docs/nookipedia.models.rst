@@ -12,18 +12,18 @@ nookipedia.models.cached\_object module
    :undoc-members:
    :show-inheritance:
 
-nookipedia.models.critter module
+nookipedia.models.fish module
 --------------------------------
 
-.. automodule:: nookipedia.models.critter
+.. automodule:: nookipedia.models.fish
    :members:
    :undoc-members:
    :show-inheritance:
 
-nookipedia.models.fossil module
--------------------------------
+nookipedia.models.bug module
+--------------------------------
 
-.. automodule:: nookipedia.models.fossil
+.. automodule:: nookipedia.models.bug
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,11 +1,15 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from nookipedia.api import API, CachedAPI
-from nookipedia.models import Critter, Fossil, Villager
+from nookipedia.models import Fish, Villager, Bug
 
 
-def is_valid(data: dict) -> bool:
+def is_valid(data: Union[dict, list]) -> bool:
     if "error" in data:
+        return False
+    if "title" in data and data["title"] in ["Resource not found.", "Failed to validate UUID."]:
+        return False
+    if type(data) is list and len(data) == 0:
         return False
     return True
 
@@ -30,44 +34,53 @@ class Nookipedia:
         """
         return await self.api.get_villager(name)
 
-    async def get_critter_raw(self, name: str) -> dict:
+    async def get_fish_raw(self, name: str) -> dict:
         """
         :param name: The name of the critter to get
         """
-        return await self.api.get_critter(name)
+        return await self.api.get_fish(name)
 
-    async def get_fossil_raw(self, name: str) -> dict:
+    async def get_bug_raw(self, name: str) -> dict:
         """
-        :param name: The name of the fossil to get
+        :param name: The name of the critter to get
         """
-        return await self.api.get_fossil(name)
+        return await self.api.get_bug(name)
 
-    async def get_today_raw(self, date: Optional[str] = None) -> dict:
-        """
-        :param date: Optional, the day in strtotime format (e.g. "tomororw", "+2 days")
-        """
-        return await self.api.get_today(date)
+    # async def get_fossil_raw(self, name: str) -> dict:
+    #     """
+    #     :param name: The name of the fossil to get
+    #     """
+    #     return await self.api.get_fossil(name)
 
-    async def get_villager_list(self) -> List[str]:
-        """
-            Returns a list of all villager names.
-        """
-        return await self.api.get_villager_list()
+    # async def get_today_raw(self, date: Optional[str] = None) -> dict:
+    #     """
+    #     :param date: Optional, the day in strtotime format (e.g. "tomororw", "+2 days")
+    #     """
+    #     return await self.api.get_today(date)
 
-    async def get_critter_list(self) -> List[str]:
+    async def get_villager_names(self) -> List[str]:
         """
-            Returns a list of all critter names.
+        Returns a list of all villager names.
+        """
+        return await self.api.get_villager_names()
 
-            Warning:
-                The critter list endpoint is currently not yet supported by the API and will return an empty list.
+    async def get_fish_names(self) -> List[str]:
         """
-        return await self.api.get_critter_list()
+        Returns a list of all fish names.
+        """
+        return await self.api.get_fish_names()
 
-    async def get_fossil_list(self) -> List[str]:
+    async def get_bug_names(self) -> List[str]:
         """
-            Returns a list of all fossil names.
+        Returns a list of all bug names.
         """
-        return await self.api.get_fossil_list()
+        return await self.api.get_bug_names()
+
+    # async def get_fossil_list(self) -> List[str]:
+    #     """
+    #     Returns a list of all fossil names.
+    #     """
+    #     return await self.api.get_fossil_list()
 
     async def get_category(self, name: str) -> List[str]:
         """
@@ -85,26 +98,64 @@ class Nookipedia:
         data = await self.api.get_villager(name)
         if not is_valid(data):
             return None
-        return Villager(data=data)
+        return Villager(**data[0])
 
-    async def get_critter(self, name: str) -> Optional[Critter]:
+    async def get_villagers(self) -> Optional[List[Villager]]:
         """
-
-        :param name: The name of the critter to get.
-        :return: Critter object, None if not found.
+        :return: List of Villager objects, None if not found.
         """
-        data = await self.api.get_critter(name)
+        data = await self.api.get_villagers()
         if not is_valid(data):
             return None
-        return Critter(data=data)
+        return [Villager(**d) for d in data]
 
-    async def get_fossil(self, name: str) -> Optional[Fossil]:
+    async def get_fish(self, name: str) -> Optional[Fish]:
         """
 
-        :param name: The name of the fossil to get
-        :return: Fossil object, None if not found.
+        :param name: The name of the Fish to get.
+        :return: Fish object, None if not found.
         """
-        data = await self.api.get_fossil(name)
+        data = await self.api.get_fish(name)
         if not is_valid(data):
             return None
-        return Fossil(data=data)
+        return Fish(**data)
+
+    async def get_fishes(self) -> Optional[List[Fish]]:
+        """
+        :return: List of Fish objects, None if not found.
+        """
+        data = await self.api.get_fishes()
+        if not is_valid(data):
+            return None
+        return [Fish(**d) for d in data]
+
+    async def get_bug(self, name: str) -> Optional[Bug]:
+        """
+
+        :param name: The name of the Bug to get.
+        :return: Bug object, None if not found.
+        """
+        data = await self.api.get_bug(name)
+        if not is_valid(data):
+            return None
+        return Bug(**data)
+
+    async def get_bugs(self) -> Optional[List[Bug]]:
+        """
+        :return: List of Bug objects, None if not found.
+        """
+        data = await self.api.get_bugs()
+        if not is_valid(data):
+            return None
+        return [Bug(**d) for d in data]
+
+    # async def get_fossil(self, name: str) -> Optional[Fossil]:
+    #     """
+    #
+    #     :param name: The name of the fossil to get
+    #     :return: Fossil object, None if not found.
+    #     """
+    #     data = await self.api.get_fossil(name)
+    #     if not is_valid(data):
+    #         return None
+    #     return Fossil(**data)

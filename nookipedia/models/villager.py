@@ -1,64 +1,46 @@
-from .cached_object import CachedObject
+import typing as _t
+
+from pydantic import BaseModel, Field
 
 
-class Villager(CachedObject):
-    """
-    Object representing a Villager.
+class NHDetails(BaseModel):
+    image_url: str
+    photo_url: str
+    icon_url: str
+    quote: str
+    sub_personality: str = Field(alias="sub-personality")
+    catchphrase: str
+    clothing: str
+    clothing_variation: str
+    fav_styles: _t.List[str]
+    fav_colors: _t.List[str]
+    hobby: str
+    house_interior_url: str
+    house_exterior_url: str
+    house_wallpaper: str
+    house_flooring: str
+    house_music: str
+    house_music_note: _t.Optional[str]
 
-    :param data: JSON from API endpoint as dict.
 
-    :var self.message: message from nookipedia
-    :var self.name: name of the villager
-    :var self.image: url to the image of the villager
-    :var self.quote:
-    :var self.gender:
-    :var self.personality:
-    :var self.species:
-    :var self.birthday:
-    :var self.sign: villagers zodiac sign
-    :var self.phrase:
-    :var self.clothes:
-    :var self.islander_favorite:
-    :var self.islander_allergic:
-    :var self.picture: url to an image of the villagers framed picture
-    :var self.siblings:
-    :var self.skill:
-    :var self.goal:
-    :var self.fear:
-    :var self.fav_clothing:
-    :var self.least_fav_clothing:
-    :var self.fav_color:
-    :var self.coffee_type:
-    :var self.coffee_milk:
-    :var self.coffee_sugar:
-    :var self.link: url to the nookipedia page of the villager
-    """
-
-    def __init__(self, data: dict):
-
-        super().__init__(data)
-        self.message = data.get("message")
-        self.name = data.get("name")
-        self.image = data.get("image")
-        self.quote = data.get("quote")
-        self.gender = data.get("gender")
-        self.personality = data.get("personality")
-        self.species = data.get("species")
-        self.birthday = data.get("birthday")
-        self.sign = data.get("sign")
-        self.phrase = data.get("phrase")
-        self.clothes = data.get("clothes")
-        self.islander_favorite = data.get("islander-favorite")
-        self.islander_allergic = data.get("islander-allergic")
-        self.picture = data.get("picture")
-        self.siblings = data.get("siblings")
-        self.skill = data.get("skill")
-        self.goal = data.get("goal")
-        self.fear = data.get("fear")
-        self.fav_clothing = data.get("favclothing")
-        self.least_fav_clothing = data.get("leastfavclothing")
-        self.fav_color = data.get("favcolor")
-        self.coffee_type = data.get("coffee-type")
-        self.coffee_milk = data.get("coffee-milk")
-        self.coffee_sugar = data.get("coffee-sugar")
-        self.link = data.get("link")
+class Villager(BaseModel):
+    id: _t.Optional[str]
+    url: str
+    name: str
+    alt_name: _t.Optional[str]
+    title_color: _t.Optional[str]
+    text_color: _t.Optional[str]
+    image_url: str
+    species: str
+    personality: str
+    gender: str
+    birthday: _t.Optional[str]
+    sign: str
+    quote: _t.Optional[str]
+    phrase: str
+    prev_phrases: _t.List[str]
+    clothing: str
+    islander: bool
+    debut: str
+    appearances: _t.List[str]
+    nh_details: _t.Optional[NHDetails]
