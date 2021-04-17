@@ -34,7 +34,8 @@ class Villager(BaseModel):
     species: str
     personality: str
     gender: str
-    birthday: _t.Optional[str]
+    birthday_day: str
+    birthday_month: str
     sign: str
     quote: _t.Optional[str]
     phrase: str
@@ -44,3 +45,7 @@ class Villager(BaseModel):
     debut: str
     appearances: _t.List[str]
     nh_details: _t.Optional[NHDetails]
+
+    @property
+    def birthday(self) -> str:
+        return f"{self.birthday_month} {self.birthday_day}"
