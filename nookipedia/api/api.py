@@ -4,7 +4,7 @@ from typing import List, Union
 import aiohttp
 
 
-SUPPORTED_API_VERSION = "1.0.0"
+SUPPORTED_API_VERSION = "1.3.0"
 
 
 class API:
@@ -122,9 +122,7 @@ class API:
         return await self._fetch_json(f"{self.url}/villagers&game=NH?nhdetails=true")
 
     async def _get_villager(self, name: str) -> dict:
-        return await self._fetch_json(
-            f"{self.url}/villagers?game=NH&nhdetails=true&name={name}"
-        )
+        return await self._fetch_json(f"{self.url}/villagers?nhdetails=true&name={name}")
 
     async def _get_fish(self, name: str) -> dict:
         return await self._fetch_json(f"{self.url}/nh/fish/{name}")
@@ -143,9 +141,7 @@ class API:
         return await self._fetch_json(f"{self.url}/today/{date}/")
 
     async def _get_villager_names(self) -> List[str]:
-        data = await self._fetch_json(
-            f"{self.url}/villagers?game=NH&excludedetails=true"
-        )
+        data = await self._fetch_json(f"{self.url}/villagers?game=NH&excludedetails=true")
         return data
 
     async def _get_fish_names(self) -> List[str]:
